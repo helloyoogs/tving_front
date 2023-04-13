@@ -124,6 +124,7 @@ const MyPageComponent = () => {
       console.log(data);
     }, [data]);
     return (
+        data && data.length <0?
       <table width="500">
         <thead>
           <tr>
@@ -165,6 +166,7 @@ const MyPageComponent = () => {
             })}
         </tbody>
       </table>
+       : <p>이용 내역이 없습니다</p>
     );
   };
   const showWatchingList = () => {
