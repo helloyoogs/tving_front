@@ -17,11 +17,8 @@ import { API_KEY } from "./ignore/ignoresecurity";
 const DetailComponent = () => {
     let [header_active, set_header_active] = useState<String[] | String>([" "]);
     const navigate = useNavigate();
-    const [moviesPopular, setMoviesPopular]= useState([]);
-    const [dramasPopular, setDramasPopular]= useState([]);
-    const [moviesDetail, setMoviesDetail]= useState([]);
+    const [moviesDetail, setMoviesDetail]:any= useState([]);
     let { id } = useParams();
-console.log(id)
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -31,7 +28,7 @@ console.log(id)
             .get(API_URL + "movie/"+id+"?api_key=" + API_KEY+"&language=ko-KO")
             .then((response) => {
                 console.log(response.data)
-               // console.log(id)
+                setMoviesDetail(response.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -47,12 +44,6 @@ console.log(id)
     }
     window.addEventListener("scroll", scroll_header);
 
-    const instance = axios.create({
-        baseURL: "https://api.themoviedb.org/3/",
-        params: {
-            api_key: "api-key",
-        },
-    });
 
     const doLogout = () => {
         axios
@@ -104,7 +95,24 @@ console.log(id)
                 ]}
                 className={header_active}
             />
-            <div className="content_wrap1">
+            <div className="content_wrap1" style={{color: "#ffffff"}}>
+                <img src={IMAGE_BASE_URL+moviesDetail?.backdrop_path} alt=""/>
+                <h1>{moviesDetail?.title}</h1>
+                <div>
+                    <p>
+                        {moviesDetail?.vote_average}
+                    </p>
+                    <p>
+                        {moviesDetail?.runtime}
+                    </p>
+                    <p>
+                        {moviesDetail?.tagline}
+                    </p>
+
+
+
+
+                </div>
             </div>
             <footer>
                 <p>Copyright © 주식회사 티빙 All right reserved.</p>

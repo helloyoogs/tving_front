@@ -19,7 +19,6 @@ const MainComponent = (props: any) => {
   const navigate = useNavigate();
   const [moviesPopular, setMoviesPopular]= useState([]);
   const [dramasPopular, setDramasPopular]= useState([]);
-    const [moviesDetail, setMoviesDetail]= useState([]);
 
   const API_URL = "https://api.themoviedb.org/3/";
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
@@ -56,13 +55,6 @@ const MainComponent = (props: any) => {
     }
   }
   window.addEventListener("scroll", scroll_header);
-
-  const instance = axios.create({
-    baseURL: "https://api.themoviedb.org/3/",
-    params: {
-      api_key: "api-key",
-    },
-  });
 
   const doLogout = () => {
     axios
@@ -152,7 +144,7 @@ const MainComponent = (props: any) => {
           }}
           modules={[A11y, Autoplay, Pagination]}
         >
-          {bannerItems.map((item:any,index:number) => (
+          {bannerItems?.map((item:any,index:number) => (
             <SwiperSlide key={"banner-" + index}>
               <img src={item.src} alt="" className="slide1_img" />
             </SwiperSlide>
