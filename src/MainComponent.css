@@ -1,0 +1,55 @@
+/*-----content_wrap1------*/
+.main_conponent .content_wrap1 {
+  height: max-content;
+}
+.main_conponent .content_wrap2 h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin: 2rem 2rem;
+}
+.main_conponent .banner.swiper {
+  overflow: hidden;
+  position: relative;
+}
+.main_conponent .banner .swiper-wrapper {
+  display: -webkit-inline-box;
+}
+.main_conponent .banner .swiper-slide img {
+  width: 100%;
+}
+
+.main_conponent .banner .swiper-pagination {
+  display: flex;
+  gap: 1rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%, 10px);
+}
+.main_conponent .banner .swiper-pagination-bullet {
+  width: 1rem;
+  height: 1rem;
+  background-color: #ffffff;
+  display: block;
+  border-radius: 50%;
+}
+.main_conponent .slide1.swiper {
+  overflow: hidden;
+  padding: 0 2rem;
+  width: 100%;
+}
+.main_conponent .slide1 .swiper-wrapper {
+  display: -webkit-inline-box;
+}
+.main_conponent .slide1 img {
+  width: 20rem;
+}
+
+@media screen and (max-width: 768px) {
+  .main_conponent .slide1.swiper {
+    padding: 0 1rem;
+  }
+  .main_conponent .slide1 img {
+    width: 10rem;
+  }
+}

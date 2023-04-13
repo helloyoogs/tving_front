@@ -1,0 +1,87 @@
+/*-----content_wrap1------*/
+.my_component {
+    color: #ffffff;
+}
+
+.my_component .content_wrap1 {
+    height: max-content;
+    padding-top: 4.6rem;
+}
+
+.my_component .content_wrap1 .my_info_container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+.my_component .content_wrap1 .my_info_container img {
+    width: 110px;
+}
+
+.my_component .content_wrap1 .my_info_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.my_component .content_wrap1 .my_info_content .cancle_button {
+    display: flex;
+    gap: .5rem;
+}
+
+.my_component .content_wrap1 .my_info_content p {
+    font-size: 20px;
+}
+
+.my_component .content_wrap2 {
+    display: flex;
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    padding: 1rem 1rem 1rem 2rem;
+    gap: 1rem;
+    align-items: center;
+}
+.my_component .content_wrap3  {
+    margin: 2rem;
+}
+.my_component .content_wrap3 table {
+    border-collapse : collapse;
+    width: 100%;
+    text-align: center;
+}
+.my_component .content_wrap3 table thead {
+    background-color: #191919;
+}
+.my_component .content_wrap3 table thead th{
+    padding: .65rem;
+}
+.my_component .content_wrap3 table tbody td{
+    padding: .65rem;
+    border-bottom: 1px solid #626262;
+}
+@media screen and (max-width: 768px) {
+
+    .my_component .content_wrap1 .my_info_container {
+        padding: .5rem;
+        justify-content: center;
+    }
+
+    .my_component .content_wrap1 .my_info_container img {
+        width: 5rem
+    }
+
+    .my_component .content_wrap1 .my_info_content .cancle_button {
+        justify-content: center;
+    }
+
+    .my_component .content_wrap2 {
+        padding: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    .my_component .content_wrap3  {
+        margin: 0;
+    }
+}

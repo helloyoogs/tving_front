@@ -1,0 +1,84 @@
+.join_component {
+  color: #ffffff;
+}
+.join_component .join_container {
+  padding-top: 10rem;
+  margin: 0 auto;
+text-align: center;
+}
+.join_component .join_container form{
+display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 30rem;
+  margin: 5rem auto;
+  gap: 2.5rem;
+}
+.join_component .join_container form label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.join_component .join_container input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  padding: .3rem 0 .3rem .3rem;
+  background-color: transparent;
+  color: #ffffff;
+  flex: 1;
+}
+.join_component .join_container input[type=password]{
+  flex: auto;
+}
+.join_component .join_container .ant-input-affix-wrapper{
+  outline: none;
+  border: none;
+  flex: 1;
+  padding: 0;
+}
+.join_component .join_container  .anticon svg{
+  color:#ffffff;
+}
+.join_component .join_container input[type=text]::placeholder,
+.join_component .join_container input[type=password]::placeholder{
+  color: #a3a3a3;
+}
+.join_component .join_container input[type=text]:focus,
+.join_component .join_container input[type=password]:focus{
+  outline: none;
+}
+.join_component .join_container button{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background-color: #dedede;
+  width: 20rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 0;
+  height: max-content;
+}
+.join_component .join_container button>span{
+  padding: .5rem 0;
+  color: #000000;
+}
+.join_component .join_container button:hover{
+  background-color: #ffffff;
+}
+@media screen and (max-width: 458px) {
+  .join_component .join_container h2 {
+    width: 85%;
+    margin: 0 auto;
+  }
+  .join_component .join_container form {
+    width: 85%;
+  }
+  .join_component .join_container input[type=submit] {
+    width: 15rem;
+  }
+}

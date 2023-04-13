@@ -1,0 +1,88 @@
+.pass_component {
+    color: #ffffff;
+}
+.pass_component .pass_container {
+    padding-top: 10rem;
+    margin: 0 auto;
+    text-align: center;
+}
+.pass_component .pass_type_container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 5rem;
+    flex-wrap: wrap;
+}
+.pass_component .pass_type{
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    width: 200px;
+    height: 140px;
+    justify-content: center;
+    background-color: rgb(25, 25, 25);
+    border-radius: 3px;
+    position: relative;
+}
+.pass_component .pass_type span{
+    margin-right: .5rem;
+}
+.pass_component .pass_container button{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: inherit;
+    color: #ffffff;
+   border: 1px solid #ffffff;
+    width: 90%;
+    height: 2.5rem;
+    border-radius: 3px;
+    margin: 0 auto;
+    cursor: pointer;
+    position: relative;
+    font-weight: 700;
+}
+.pass_component .pass_container button:after{
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    content: "";
+  background-image: url("./img/icon-next.svg");
+    width: 1.3rem;
+    height: 1.3rem;
+    transform: translateY(-50%);
+    top: 50%;
+    right: 0;
+}
+.pass_component .pass_container button:hover{
+    border: 1px solid #ff1f45;
+}
+.pass_component .pass_container button:disabled{
+    background-color: #999999;
+    border: 1px solid #999999;
+    color: #ededed;
+    cursor: inherit;
+}
+.pass_component .pass_container button:disabled:after{
+    background-image: inherit;
+}
+.pass_component .pass_container .usage_pass{
+    position: absolute;
+    background-color: #ff1f45;
+    top: 0;
+    right: 0;
+    padding: .3rem;
+    border-radius: 3px;
+}
+.pass_component .pass_container .usage_pass_info{
+    padding-top: 1rem;
+    width: 200px;
+}
+@media screen and (max-width: 458px) {
+    .pass_component .pass_container h2 {
+        width: 85%;
+        margin: 0 auto;
+    }
+
+}
