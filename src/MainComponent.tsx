@@ -38,7 +38,7 @@ const MainComponent = (props: any) => {
 
   const Popular = () => {
     axios
-      .get(API_URL + "movie/popular?api_key=" + API_KEY)
+      .get(API_URL + "movie/popular?api_key=" + API_KEY+"&language=en-US&page=1")
       .then((response) => {
         //  setThisMonthlist(response.data);
       })
