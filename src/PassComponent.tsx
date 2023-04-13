@@ -9,7 +9,7 @@ import React, {
 import Header from "./Header";
 import "./PassComponent.css";
 import axios from "axios";
-import { IMPCODE } from "../ignore/ignoresecurity";
+import { IMPCODE } from "./ignore/ignoresecurity";
 declare const window: typeof globalThis & {
   IMP: any;
 };

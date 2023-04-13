@@ -26,7 +26,7 @@ import { RequestSignUp } from "./Container/JoinContainer";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import * as colorette from "colorette";
-import { API_KEY } from "../ignore/ignoresecurity";
+import { API_KEY } from "./ignore/ignoresecurity";
 
 const MainComponent = (props: any) => {
   let [header_active, set_header_active] = useState<String[] | String>([" "]);

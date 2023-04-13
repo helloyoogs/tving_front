@@ -109,9 +109,8 @@ const MyPageComponent = () => {
   const goMy = () => {
     navigate("/my");
   };
-  const ListComponent = () => {
-    useEffect(() => {
-      axios
+  useEffect(() => {
+    axios
         .get("/payment")
         .then((response) => {
           setData(response.data);
@@ -119,8 +118,8 @@ const MyPageComponent = () => {
         .catch((error) => {
           console.error(error);
         });
-    }, []);
-
+  }, []);
+  const ListComponent = () => {
     useEffect(() => {
       console.log(data);
     }, [data]);
