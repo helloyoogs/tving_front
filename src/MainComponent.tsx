@@ -4,38 +4,50 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "./common.css";
 import Header from "./Header";
 import "./MainComponent.css";
-import mainslide1_1 from "./img/mainslide1_1.webp";
-import mainslide1_2 from "./img/mainslide1_2.webp";
-import mainslide1_3 from "./img/mainslide1_3.webp";
-import mainslide1_4 from "./img/mainslide1_4.webp";
-import mainslide1_5 from "./img/mainslide1_5.webp";
-import mainslide1_6 from "./img/mainslide1_6.webp";
-import mainslide1_7 from "./img/mainslide1_7.webp";
-import mainslide1_8 from "./img/mainslide1_8.webp";
-import mainslide1_9 from "./img/mainslide1_9.webp";
-import mainslide1_10 from "./img/mainslide1_10.webp";
-import mainslide1_11 from "./img/mainslide1_11.webp";
 import banner1_food from "./img/banner1_food.webp";
 import banner1_transfer_love from "./img/banner1_transfer_love.webp";
 import banner1_yagu from "./img/banner1_yagu.webp";
 import my_tving from "./img/my_tving.webp";
 import { A11y, Autoplay, Pagination } from "swiper";
-import Axios from "axios";
 import Endpoint from "./config/Endpoint";
-import { RequestSignUp } from "./Container/JoinContainer";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import * as colorette from "colorette";
 import { API_KEY } from "./ignore/ignoresecurity";
 
 const MainComponent = (props: any) => {
   let [header_active, set_header_active] = useState<String[] | String>([" "]);
   const navigate = useNavigate();
-  const [movies, setMovies] = useState([]);
+  const [moviesPopular, setMoviesPopular]= useState([]);
+  const [dramasPopular, setDramasPopular]= useState([]);
+    const [moviesDetail, setMoviesDetail]= useState([]);
 
   const API_URL = "https://api.themoviedb.org/3/";
-  const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
+  //유명한 드라마
+  useEffect(()=>{
+    axios
+        .get(API_URL + "tv/popular?api_key=" + API_KEY+"&language=en-US&page=1")
+        .then((response) => {
+          console.log(response.data.results)
+            setDramasPopular(response.data.results)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  },[])
+  //유명한 영화
+  useEffect(()=>{
+    axios
+        .get(API_URL + "movie/popular?api_key=" + API_KEY+"&language=en-US&page=1")
+        .then((response) => {
+          setMoviesPopular(response.data.results)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  },[])
+  //유명한 영화
   const Popular = () => {
     axios
       .get(API_URL + "movie/popular?api_key=" + API_KEY+"&language=en-US&page=1")
@@ -110,74 +122,7 @@ const MainComponent = (props: any) => {
       alt: "",
     },
   ];
-  const slideItems = [
-    {
-      id: 0,
-      name: "만찢남",
-      src: `${mainslide1_1}`,
-      alt: "",
-    },
-    {
-      id: 1,
-      name: "두발로 티켓팅",
-      src: `${mainslide1_2}`,
-      alt: "",
-    },
-    {
-      id: 2,
-      name: "케이팝 제너레이션",
-      src: `${mainslide1_3}`,
-      alt: "",
-    },
-    {
-      id: 3,
-      name: "(여자)아이들 외 취급주의 2",
-      src: `${mainslide1_4}`,
-      alt: "",
-    },
-    {
-      id: 4,
-      name: "대리인간 [드라마 스테이지 2021]",
-      src: `${mainslide1_5}`,
-      alt: "",
-    },
-    {
-      id: 5,
-      name: "위닝런",
-      src: `${mainslide1_6}`,
-      alt: "",
-    },
-    {
-      id: 6,
-      name: "최강야구",
-      src: `${mainslide1_7}`,
-      alt: "",
-    },
-    {
-      id: 7,
-      name: "하이큐!! 투 더 탑",
-      src: `${mainslide1_8}`,
-      alt: "",
-    },
-    {
-      id: 8,
-      name: "슬램덩크",
-      src: `${mainslide1_9}`,
-      alt: "",
-    },
-    {
-      id: 9,
-      name: "아무것도 하고 싶지 않아",
-      src: `${mainslide1_10}`,
-      alt: "",
-    },
-    {
-      id: 10,
-      name: "대행사",
-      src: `${mainslide1_11}`,
-      alt: "",
-    },
-  ];
+
 
   return (
     <div className="main_conponent">
@@ -222,7 +167,6 @@ const MainComponent = (props: any) => {
           ))}
         </Swiper>
       </div>
-      /* tmdb api test */
       <div className="content_wrap2">
         <h2>실시간 인기 영화</h2>
         <Swiper
@@ -232,14 +176,33 @@ const MainComponent = (props: any) => {
           slidesPerView={"auto"}
           className="slide1"
         >
-          {slideItems.map((item) => (
+          {moviesPopular?.map((item:any) => (
             <SwiperSlide key={"slide1-" + Math.random()}>
-              <img src={item.src} alt="" className="slide1_img" />
+              <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
+             <p> {item?.title}</p>
               {/* {item.name} */}
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+        <div className="content_wrap2">
+            <h2>실시간 인기 드라마</h2>
+            <Swiper
+                spaceBetween={12}
+                speed={600}
+                direction={"horizontal"}
+                slidesPerView={"auto"}
+                className="slide1"
+            >
+                {dramasPopular?.map((item:any) => (
+                    <SwiperSlide key={"slide1-" + Math.random()}>
+                        <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
+                        <p> {item?.name}</p>
+                        {/* {item.name} */}
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>
       <footer>
         <p>Copyright © 주식회사 티빙 All right reserved.</p>
       </footer>
