@@ -9,6 +9,7 @@ import LoginComponent from './LoginComponent';
 import JoinComponent from "./JoinComponent";
 import {LoginPage, JoinPage, PassPage} from "./Container";
 import MyPageComponent from "./MyPageComponent";
+import DetailComponent from "./DetailComponent";
 
 const App = ()=> {
 
@@ -21,6 +22,7 @@ const App = ()=> {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/pass' element={<PassPage />} />
           <Route path='/my' element={<MyPageComponent />} />
+        <Route path='/detail/:id' element={<DetailComponent />} />
           {/*<Route path='/login/oauth' element={<SocialLoginingPage />} />*/}
 
       </Routes>
