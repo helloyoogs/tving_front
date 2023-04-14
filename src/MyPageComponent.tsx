@@ -124,7 +124,7 @@ const MyPageComponent = () => {
       console.log(data);
     }, [data]);
     return (
-        data && data.length <0?
+        data && data.length >0?
       <table width="500">
         <thead>
           <tr>
