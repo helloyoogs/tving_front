@@ -304,8 +304,6 @@ const MyPageComponent = () => {
       <Header
         content={[
           { link: "/main", name: "홈", type: "logo" },
-          { link: "#", name: "TV프로그램" },
-          { link: "#", name: "영화" },
           {
             place: "right",
             type: "my_tiving",
