@@ -1,0 +1,68 @@
+/*-----content_wrap1------*/
+.detail_component  {
+  color: #ffffff;
+}
+.detail_component .content_wrap1 {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+}
+.detail_component .content_wrap1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  filter: blur(30px);
+  backdrop-filter: blur(30px); /* Apply blur effect to background image */
+}
+
+.detail_component .content_container {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  justify-content: center;
+  padding: 10rem 18rem 3rem 18rem;
+  position: relative;
+z-index: 1;
+}
+
+
+
+.detail_component .content_wrap1 img{
+  width: 300px;
+  border-radius: 30px;
+}
+.detail_component .content_wrap1 .content_info_container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.detail_component .content_wrap1 .content_info_box{
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+
+
+@media screen and (max-width: 1400px) {
+  .detail_component .content_container {
+    padding: 10rem 3rem 3rem 3rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    .detail_component .content_container {
+      padding: 10rem 2rem 2rem 2rem;
+      flex-wrap: wrap;
+
+    }
+
+  }
+}
