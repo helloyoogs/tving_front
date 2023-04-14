@@ -9,7 +9,7 @@ import JoinComponent from "./JoinComponent";
 import {LoginPage, JoinPage, PassPage} from "./Container";
 import MyPageComponent from "./MyPageComponent";
 import MovieDetailComponent from "./MovieDetailComponent";
-import DramaDetailComponent from "./TvDetailComponent";
+import TvDetailComponent from "./TvDetailComponent";
 
 const App = ()=> {
 
@@ -23,7 +23,7 @@ const App = ()=> {
           <Route path='/pass' element={<PassPage />} />
           <Route path='/my' element={<MyPageComponent />} />
         <Route path='/movieDetail/:id' element={<MovieDetailComponent />} />
-        <Route path='/dramaDetail/:id' element={<DramaDetailComponent />} />
+        <Route path='/tvDetail/:id' element={<TvDetailComponent />} />
           {/*<Route path='/login/oauth' element={<SocialLoginingPage />} />*/}
 
       </Routes>

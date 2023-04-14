@@ -182,7 +182,7 @@ const MainComponent = (props: any) => {
                 className="slide1"
             >
                 {tvPopular?.map((item:any,index:number) => (
-                    <SwiperSlide key={"dramasPopular-" + index} onClick={()=>goTvDetail(item.id)}>
+                    <SwiperSlide key={"tvPopular-" + index} onClick={()=>goTvDetail(item.id)}>
                         <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
                         <p> {item?.name}</p>
                         {/* {item.name} */}

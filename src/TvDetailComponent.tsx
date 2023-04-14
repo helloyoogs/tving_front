@@ -25,7 +25,7 @@ const TvDetailComponent = () => {
     //클릭한 아이디값의 데이터 불러오기
     useEffect(() => {
         axios
-            .get(API_URL + "drama/" + id + "?api_key=" + API_KEY + "&language=ko-KO")
+            .get(API_URL + "tv/" + id + "?api_key=" + API_KEY + "&language=ko-KO")
             .then((response) => {
                 console.log(response.data)
                 setTvDetail(response.data)
@@ -74,14 +74,6 @@ const TvDetailComponent = () => {
     const goMy = () => {
         navigate("/my");
     };
-    const convertMinutesToHours = (minutes:number) =>{
-
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-
-        return `${hours}시간 ${remainingMinutes}분`;
-    }
-
     return (
         <div className="detail_component">
             <Header
@@ -109,7 +101,7 @@ const TvDetailComponent = () => {
                 <img src={IMAGE_BASE_URL + tvDetail?.poster_path} alt=""/>
                 <div className={'content_info_container'}>
                     <div className={'content_info_box'}>
-                        <h1>{tvDetail?.title}</h1>
+                        <h1>{tvDetail?.name}</h1>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                             <path d="M0 0h32v32H0z" fill="transparent"></path>
                             <g data-name="패\uC2A4 4347" fill="none">
@@ -123,15 +115,10 @@ const TvDetailComponent = () => {
                     </div>
                     <div className={'content_info_box'}>
                         {tvDetail?.genres?.map((item: any, index: number) => (
-                            <div key={"moviesDetailGenres-" + index}>
+                            <div key={"tvDetailGenres-" + index}>
                                 <p> {item?.name}</p>
                             </div>
                         ))}
-                    </div>
-                    <div className={'content_info_box'}>
-                        <p>
-                            {convertMinutesToHours(tvDetail?.runtime)}
-                        </p>
                     </div>
                     <div className={'content_info_box'}>
                         <p>
