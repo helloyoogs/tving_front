@@ -22,7 +22,6 @@ const MainComponent = (props: any) => {
     const [moviesTopRated, setMoviesTopRated]= useState([]);
     const [tvTopRated, setTvTopRated]= useState([]);
     const [moviesNowPlaying, setmoviesNowPlaying]= useState([]);
-    const [tvOnTheAir, setTvOnTheAir]= useState([]);
   const API_URL = "https://api.themoviedb.org/3/";
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     //생방송 영화
@@ -36,21 +35,10 @@ const MainComponent = (props: any) => {
                 console.log(error);
             });
     },[])
-    //생방송 TV
-    useEffect(()=>{
-        axios
-            .get(API_URL + "tv/on_the_air?api_key=" + API_KEY+"&language=ko-KO&page=4")
-            .then((response) => {
-                setTvOnTheAir(response.data.results)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    },[])
   //인기있는 드라마
   useEffect(()=>{
     axios
-        .get(API_URL + "tv/popular?api_key=" + API_KEY+"&language=ko-KO&page=8")
+        .get(API_URL + "tv/popular?api_key=" + API_KEY+"&language=ko-KO&page=12")
         .then((response) => {
             setTvPopular(response.data.results)
         })
@@ -61,7 +49,7 @@ const MainComponent = (props: any) => {
     //Top rates 드라마
     useEffect(()=>{
         axios
-            .get(API_URL + "tv/top_rated?api_key=" + API_KEY+"&language=ko-KO&page=1")
+            .get(API_URL + "tv/top_rated?api_key=" + API_KEY+"&language=ko-KO&page=2")
             .then((response) => {
                 setTvTopRated(response.data.results)
             })
@@ -80,10 +68,10 @@ const MainComponent = (props: any) => {
           console.log(error);
         });
   },[])
-    //최신 영화
+    //top 20 영화
     useEffect(()=>{
         axios
-            .get(API_URL + "movie/top_rated?api_key=" + API_KEY+"&language=ko-KO&page=1")
+            .get(API_URL + "movie/top_rated?api_key=" + API_KEY+"&language=ko-KO&page=8")
             .then((response) => {
                 setMoviesTopRated(response.data.results)
             })
@@ -91,7 +79,6 @@ const MainComponent = (props: any) => {
                 console.log(error);
             });
     },[])
-  //유명한 영화
   /* wheel,scrtoll 이벤트 main_header */
   function scroll_header() {
     if (scrollY > 0) {
@@ -199,41 +186,6 @@ const MainComponent = (props: any) => {
         </Swiper>
       </div>
         <div className="content_wrap2">
-            <h2>Top 20 드라마</h2>
-            <Swiper
-                spaceBetween={12}
-                speed={600}
-                direction={"horizontal"}
-                slidesPerView={"auto"}
-                className="slide1"
-            >
-                {tvTopRated && tvTopRated.length >0 && tvTopRated?.map((item:any,index:number) => (
-                    <SwiperSlide key={"tvTopRated-" + index} onClick={()=>goTvDetail(item.id)}>
-                        <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
-                        <p> {item?.name}</p>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
-      <div className="content_wrap2">
-        <h2>실시간 인기 영화</h2>
-        <Swiper
-          spaceBetween={12}
-          speed={600}
-          direction={"horizontal"}
-          slidesPerView={"auto"}
-          className="slide1"
-        >
-          {moviesPopular?.map((item:any,index:number) => (
-              <SwiperSlide key={"moviesPopular-" + index} onClick={()=>goMovieDetail(item.id)}>
-              <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
-             <p> {item?.title}</p>
-              {/* {item.name} */}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-        <div className="content_wrap2">
             <h2>실시간 인기 드라마</h2>
             <Swiper
                 spaceBetween={12}
@@ -269,24 +221,6 @@ const MainComponent = (props: any) => {
             </Swiper>
         </div>
         <div className="content_wrap2">
-            <h2>생방송 Tv</h2>
-            <Swiper
-                spaceBetween={12}
-                speed={600}
-                direction={"horizontal"}
-                slidesPerView={"auto"}
-                className="slide1"
-            >
-                {tvOnTheAir && tvOnTheAir.length >0 &&  tvOnTheAir?.map((item:any,index:number) => (
-                    <SwiperSlide key={"tvOnTheAir-" + index} onClick={()=>goMovieDetail(item.id)}>
-                        <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
-                        <p> {item?.title}</p>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
-
-        <div className="content_wrap2">
             <h2>실시간 영화</h2>
             <Swiper
                 spaceBetween={12}
@@ -303,6 +237,44 @@ const MainComponent = (props: any) => {
                 ))}
             </Swiper>
         </div>
+        <div className="content_wrap2">
+            <h2>Top 20 드라마</h2>
+            <Swiper
+                spaceBetween={12}
+                speed={600}
+                direction={"horizontal"}
+                slidesPerView={"auto"}
+                className="slide1"
+            >
+                {tvTopRated && tvTopRated.length >0 && tvTopRated?.map((item:any,index:number) => (
+                    <SwiperSlide key={"tvTopRated-" + index} onClick={()=>goTvDetail(item.id)}>
+                        <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
+                        <p> {item?.name}</p>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>
+      <div className="content_wrap2">
+        <h2>실시간 인기 영화</h2>
+        <Swiper
+          spaceBetween={12}
+          speed={600}
+          direction={"horizontal"}
+          slidesPerView={"auto"}
+          className="slide1"
+        >
+          {moviesPopular?.map((item:any,index:number) => (
+              <SwiperSlide key={"moviesPopular-" + index} onClick={()=>goMovieDetail(item.id)}>
+              <img src={IMAGE_BASE_URL+item?.poster_path} alt="" className="slide1_img" />
+             <p> {item?.title}</p>
+              {/* {item.name} */}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+
+
       <footer>
         <p>Copyright © 주식회사 티빙 All right reserved.</p>
       </footer>

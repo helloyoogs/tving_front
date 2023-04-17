@@ -19,9 +19,19 @@ const TvDetailComponent = () => {
     const navigate = useNavigate();
     const [tvDetail, setTvDetail]: any = useState([]);
     let {id} = useParams();
+    const [wishIcon, setWishIcon] = useState(false);
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    const handleFalseWishIcon = () => {
+        setWishIcon((wishIcon: boolean) => !wishIcon);
+// useEffect(()=>{
+//     axios()
+// }, [])
+    };
+    const handleTrueWishIcon = () => {
+        setWishIcon((wishIcon: boolean) => !wishIcon);
 
+    };
     //클릭한 아이디값의 데이터 불러오기
     useEffect(() => {
         axios
@@ -100,7 +110,8 @@ const TvDetailComponent = () => {
                 <div className={'content_info_container'}>
                     <div className={'content_info_box'}>
                         <h1>{tvDetail?.name}</h1>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        {wishIcon === false?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" onClick={handleFalseWishIcon}>
                             <path d="M0 0h32v32H0z" fill="transparent"></path>
                             <g data-name="패\uC2A4 4347" fill="none">
                                 <path
@@ -110,6 +121,14 @@ const TvDetailComponent = () => {
                                     fill="#fff"></path>
                             </g>
                         </svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" onClick={handleTrueWishIcon}>
+                            <path d="M0 0h32v32H0z" fill="transparent"></path>
+                            <path
+                                d="M16 31.498l-2.175-1.979C6.1 22.521 1 17.905 1 12.24a8.165 8.165 0 018.25-8.242A8.984 8.984 0 0116 7.131a8.984 8.984 0 016.75-3.133A8.165 8.165 0 0131 12.24c0 5.665-5.1 10.281-12.822 17.293z"
+                                fill="#fff"></path>
+                        </svg>
+                        }
                     </div>
                     <div className={'content_info_box'}>
                         {tvDetail?.genres?.map((item: any, index: number) => (
@@ -127,12 +146,7 @@ const TvDetailComponent = () => {
                 </div>
             </div>
             </div>
-            {/*<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">*/}
-            {/*    <path d="M0 0h32v32H0z" fill="transparent"></path>*/}
-            {/*    <path*/}
-            {/*        d="M16 31.498l-2.175-1.979C6.1 22.521 1 17.905 1 12.24a8.165 8.165 0 018.25-8.242A8.984 8.984 0 0116 7.131a8.984 8.984 0 016.75-3.133A8.165 8.165 0 0131 12.24c0 5.665-5.1 10.281-12.822 17.293z"*/}
-            {/*        fill="#fff"></path>*/}
-            {/*</svg>*/}
+
             <footer>
                 <p>Copyright © 주식회사 티빙 All right reserved.</p>
             </footer>
