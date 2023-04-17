@@ -22,15 +22,24 @@ const TvDetailComponent = () => {
     const [wishIcon, setWishIcon] = useState(false);
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    console.log(tvDetail)
     const handleFalseWishIcon = () => {
         setWishIcon((wishIcon: boolean) => !wishIcon);
-// useEffect(()=>{
-//     axios()
-// }, [])
+        axios
+            .post("/content/dataSave",{
+                removed_at:null,
+                content_id: tvDetail.id,
+                content_genres: tvDetail.genres,
+                content_title: tvDetail.title,
+                content_poster: tvDetail.poster_path
+            })
     };
     const handleTrueWishIcon = () => {
         setWishIcon((wishIcon: boolean) => !wishIcon);
-
+        axios
+            .post("/content/dataSave",{
+                added_at:null,
+            })
     };
     //클릭한 아이디값의 데이터 불러오기
     useEffect(() => {
