@@ -22,22 +22,27 @@ const TvDetailComponent = () => {
     const [wishIcon, setWishIcon] = useState(false);
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-    console.log(tvDetail)
-    const handleFalseWishIcon = () => {
+
+
+    const handleFalseWishIcon = (): void => {
         setWishIcon((wishIcon: boolean) => !wishIcon);
-        axios
-            .post("/content/dataSave",{
-                removed_at:null,
-                content_id: tvDetail.id,
-                content_genres: tvDetail.genres,
-                content_title: tvDetail.title,
-                content_poster: tvDetail.poster_path
-            })
+        const genresArray = tvDetail.genres.map((genre: any) => {
+            return { id: genre.id, name: genre.name };
+        });
+
+        axios.post("/wish/dataSave",{
+            removed_at: null,
+            content_id: tvDetail.id,
+            content_genres: Array.from(tvDetail.genres),
+            content_title: tvDetail.name,
+            content_poster: tvDetail.poster_path
+        })
     };
+console.log(Array.from(tvDetail.genres))
     const handleTrueWishIcon = () => {
         setWishIcon((wishIcon: boolean) => !wishIcon);
         axios
-            .post("/content/dataSave",{
+            .post("/wish/dataSave",{
                 added_at:null,
             })
     };
