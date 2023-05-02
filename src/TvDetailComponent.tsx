@@ -18,19 +18,22 @@ const TvDetailComponent = () => {
     let [header_active, set_header_active] = useState<String[] | String>([" "]);
     const navigate = useNavigate();
     const [tvDetail, setTvDetail]: any = useState([]);
+    const [wishList, setWishList]: any = useState([]);
+    // response.data 배열을 map을 사용하여 content_id 배열 생성
+    const contentIds = wishList.map((item: any) => item.content_id);
+    // tvDetail.id와 contentIds 배열 요소를 비교하여 같은 경우에만 필터링하여 반환
+    const matchingWishes = contentIds.filter((item: any) => item === tvDetail.id);
     let {id} = useParams();
-    const [wishIcon, setWishIcon] = useState(false);
+    const [wishIcon, setWishIcon] = useState(matchingWishes.length === 0);
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     const handleFalseWishIcon = (): void => {
-        setWishIcon((wishIcon: boolean) => !wishIcon);
         const genresArray = (tvDetail?.genres || []).map((genre: any) => {
             if (genre.id && genre.name) {
                 return { id: genre.id, name: genre.name };
             }
             return null;
         }).filter((genre: any) => genre !== null);
-
 
         axios.post("/wish/dataSave",{
             removed_at: null,
@@ -44,11 +47,11 @@ const TvDetailComponent = () => {
     };
 
     const handleTrueWishIcon = () => {
-        setWishIcon((wishIcon: boolean) => !wishIcon);
-        axios
-            .post("/wish/dataSave",{
-                added_at:null,
-            })
+        // setWishIcon((wishIcon: boolean) => !wishIcon);
+        // axios
+        //     .post("/wish/dataSave",{
+        //         added_at:null,
+        //     })
     };
     //클릭한 아이디값의 데이터 불러오기
     useEffect(() => {
@@ -61,7 +64,16 @@ const TvDetailComponent = () => {
                 console.log(error);
             });
     }, [])
-
+    useEffect(() => {
+        axios
+            .get("/wish/list",{
+            })  .then((response) => {
+            setWishList(response.data)
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
     /* wheel,scrtoll 이벤트 main_header */
     function scroll_header() {
         if (scrollY > 0) {
@@ -127,7 +139,7 @@ const TvDetailComponent = () => {
                 <div className={'content_info_container'}>
                     <div className={'content_info_box'}>
                         <h1>{tvDetail?.name}</h1>
-                        {wishIcon === false?
+                        {matchingWishes.length === 0?
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" onClick={handleFalseWishIcon}>
                             <path d="M0 0h32v32H0z" fill="transparent"></path>
                             <g data-name="패\uC2A4 4347" fill="none">
