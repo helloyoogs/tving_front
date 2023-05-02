@@ -22,23 +22,27 @@ const TvDetailComponent = () => {
     const [wishIcon, setWishIcon] = useState(false);
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-
-
     const handleFalseWishIcon = (): void => {
         setWishIcon((wishIcon: boolean) => !wishIcon);
-        const genresArray = tvDetail.genres.map((genre: any) => {
-            return { id: genre.id, name: genre.name };
-        });
+        const genresArray = (tvDetail?.genres || []).map((genre: any) => {
+            if (genre.id && genre.name) {
+                return { id: genre.id, name: genre.name };
+            }
+            return null;
+        }).filter((genre: any) => genre !== null);
+
 
         axios.post("/wish/dataSave",{
             removed_at: null,
             content_id: tvDetail.id,
-            content_genres: Array.from(tvDetail.genres),
+            content_genres: genresArray,
             content_title: tvDetail.name,
             content_poster: tvDetail.poster_path
+        }).then((response) => {
+            console.log(response.data)
         })
     };
-console.log(Array.from(tvDetail.genres))
+
     const handleTrueWishIcon = () => {
         setWishIcon((wishIcon: boolean) => !wishIcon);
         axios
@@ -51,7 +55,6 @@ console.log(Array.from(tvDetail.genres))
         axios
             .get(API_URL + "tv/" + id + "?api_key=" + API_KEY + "&language=ko-KO")
             .then((response) => {
-                console.log(response.data)
                 setTvDetail(response.data)
             })
             .catch((error) => {
