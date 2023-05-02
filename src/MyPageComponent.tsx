@@ -27,6 +27,7 @@ const MyPageComponent = () => {
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     const navigate = useNavigate();
     //이용 내역 테이블에서 로그인한 아이디이고 end_date가 만료되지 않은 회원만 조회
+
     useEffect(() => {
         axios
             .get("/payment/list")
@@ -81,6 +82,13 @@ const MyPageComponent = () => {
 
     //결제
     /* wheel,scrtoll 이벤트 main_header */
+    const goMovieDetail = (id: any) => {
+        navigate("/movieDetail/" + id);
+    };
+    const goTvDetail = (id: any) => {
+        navigate("/tvDetail/" + id);
+    };
+
     function scroll_header() {
         if (scrollY > 0) {
             set_header_active((header_active = "active"));
@@ -195,7 +203,8 @@ const MyPageComponent = () => {
                 {wishList && wishList.length > 0 ?
                     wishList?.map((item: any, index: number) => {
                         return (
-                            <div className={'my_wish_wrap'} key={"wishList-" + index}>
+                            <div className={'my_wish_wrap'} key={"wishList-" + index}
+                                 onClick={() => item.content_type === "tv" ? goTvDetail(item.content_id) : goMovieDetail(item.content_id)}>
                                 <img src={IMAGE_BASE_URL + item.content_poster} alt="" className="slide1_img"/>
                                 <div>{item.content_title}</div>
                             </div>
@@ -205,7 +214,7 @@ const MyPageComponent = () => {
             </div>
         );
     };
-    const showWatchingList = () => {
+    const showWishList = () => {
         return <WishComponent/>;
     };
     const showList = () => {
@@ -403,12 +412,11 @@ const MyPageComponent = () => {
                 </div>
             </div>
             <div className={"content_wrap2"}>
-                <span onClick={() => setTabPage("showWatchingList")}>시청 내역</span>
-                <span onClick={() => setTabPage("showWatchingList")}>찜</span>
+                <span onClick={() => setTabPage("showWishList")}>찜</span>
                 <span onClick={() => setTabPage("showList")}>이용 내역</span>
             </div>
             <div className={"content_wrap3"}>
-                {tabPage === "showWatchingList" ? showWatchingList() : showList()}
+                {tabPage === "showList" ? showList() : showWishList()}
             </div>
             <footer>
                 <p>Copyright © 주식회사 티빙 All right reserved.</p>
