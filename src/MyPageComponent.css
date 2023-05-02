@@ -61,6 +61,23 @@
     padding: .65rem;
     border-bottom: 1px solid #626262;
 }
+.my_component .my_wish_component  {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.my_component .my_wish_wrap  {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem
+}
+.my_component .my_wish_wrap img{
+    height: 300px;
+    flex: 1;
+    width: 100%;
+}
 @media screen and (max-width: 768px) {
 
     .my_component .content_wrap1 .my_info_container {
