@@ -14,27 +14,99 @@ import {useNavigate, useParams} from "react-router";
 import axios from "axios";
 import {API_KEY} from "./ignore/ignoresecurity";
 
-const MovieDetailComponent = () => {
+const movieDetailComponent = () => {
     let [header_active, set_header_active] = useState<String[] | String>([" "]);
     const navigate = useNavigate();
-    const [moviesDetail, setMoviesDetail]: any = useState([]);
+    const [movieDetail, setmovieDetail]: any = useState([]);
+    const [wishList, setWishList]: any = useState([]);
+    const [wishedList, setWishedList]: any = useState([]);
+    const matchingWishes = wishList.filter((item: any) => item.content_id === movieDetail.id);
+    const singleWish = matchingWishes.length > 0 ? matchingWishes[0] : null;
+
+    const matchingWished = wishedList.filter((item: any) => item.content_id === movieDetail.id);
+    const singleWished = matchingWished.length > 0 ? matchingWished[0] : null;
     let {id} = useParams();
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    const handleFalseWishIcon = (): void => {
+        const genresArray = (movieDetail?.genres || []).map((genre: any) => {
+            if (genre.id && genre.name) {
+                return {id: genre.id, name: genre.name};
+            }
+            return null;
+        }).filter((genre: any) => genre !== null);
 
+        singleWished ?
+            axios.put("/wish/" + singleWished?.id, {
+                removed_at: null
+            }).then((response) => {
+                handleWishList()
+            })
+            :
+            axios.post("/wish/dataSave", {
+                removed_at: null,
+                content_id: movieDetail.id,
+                content_genres: genresArray,
+                content_title: movieDetail.title,
+                content_poster: movieDetail.poster_path,
+                content_type:"movie"
+            }).then((response) => {
+                handleWishList()
+            })
+    };
+
+    const handleTrueWishIcon = () => {
+        axios.put("/wish/" + singleWish.id, {}).then((response) => {
+            console.log(response.data)
+        }).then((response) => {
+            handleWishList()
+        })
+    };
     //클릭한 아이디값의 데이터 불러오기
     useEffect(() => {
         axios
             .get(API_URL + "movie/" + id + "?api_key=" + API_KEY + "&language=ko-KO")
             .then((response) => {
-                console.log(response.data)
-                setMoviesDetail(response.data)
+                setmovieDetail(response.data)
             })
             .catch((error) => {
                 console.log(error);
             });
     }, [])
-
+    useEffect(() => {
+        axios
+            .get("/wish/list", {}).then((response) => {
+            setWishList(response.data)
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
+    useEffect(() => {
+        axios
+            .get("/wish/wishedList", {}).then((response) => {
+            setWishedList(response.data)
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
+    const handleWishList = () => {
+        axios
+            .get("/wish/list", {}).then((response) => {
+            setWishList(response.data)
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+        axios
+            .get("/wish/wishedList", {}).then((response) => {
+            setWishedList(response.data)
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     /* wheel,scrtoll 이벤트 main_header */
     function scroll_header() {
         if (scrollY > 0) {
@@ -74,14 +146,6 @@ const MovieDetailComponent = () => {
     const goMy = () => {
         navigate("/my");
     };
-    const convertMinutesToHours = (minutes:number) =>{
-
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-
-        return `${hours}시간 ${remainingMinutes}분`;
-    }
-
     return (
         <div className="detail_component">
             <Header
@@ -102,50 +166,54 @@ const MovieDetailComponent = () => {
                 ]}
                 className={header_active}
             />
-            <div className="content_wrap1" style={{backgroundImage:`url(${IMAGE_BASE_URL+moviesDetail?.backdrop_path})`}}>
+            <div className="content_wrap1"
+                 style={{backgroundImage: `url(${IMAGE_BASE_URL + movieDetail?.backdrop_path})`}}>
                 <div className={'content_container'}>
-                <img src={IMAGE_BASE_URL + moviesDetail?.poster_path} alt=""/>
-                <div className={'content_info_container'}>
-                    <div className={'content_info_box'}>
-                        <h1>{moviesDetail?.title}</h1>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                            <path d="M0 0h32v32H0z" fill="transparent"></path>
-                            <g data-name="패\uC2A4 4347" fill="none">
-                                <path
-                                    d="M16 31.5l-2.175-1.979C6.1 22.523 1 17.907 1 12.242A8.165 8.165 0 019.25 4 8.984 8.984 0 0116 7.133 8.984 8.984 0 0122.75 4 8.165 8.165 0 0131 12.242c0 5.665-5.1 10.281-12.822 17.293z"></path>
-                                <path
-                                    d="M16.004 29.34l1.15-1.037c3.73-3.386 6.951-6.31 9.107-8.95 2.17-2.658 3.138-4.851 3.138-7.11v-.016a6.604 6.604 0 00-1.924-4.707 6.522 6.522 0 00-4.713-1.92 7.382 7.382 0 00-5.548 2.575L16 9.589l-1.214-1.414A7.384 7.384 0 009.233 5.6a6.522 6.522 0 00-4.708 1.92A6.604 6.604 0 002.6 12.227v.015c0 2.264.972 4.461 3.151 7.124 2.164 2.644 5.397 5.572 9.141 8.963l.01.008 1.102 1.004M16 31.499l-2.175-1.978C6.099 22.523 1 17.907 1 12.242A8.165 8.165 0 019.25 4 8.984 8.984 0 0116 7.133 8.984 8.984 0 0122.75 4 8.165 8.165 0 0131 12.242c0 5.665-5.1 10.281-12.823 17.294L16 31.499z"
-                                    fill="#fff"></path>
-                            </g>
-                        </svg>
-                    </div>
-                    <div className={'content_info_box'}>
-                        {moviesDetail?.genres?.map((item: any, index: number) => (
-                            <div key={"moviesDetailGenres-" + index}>
-                                <p> {item?.name}</p>
-                            </div>
-                        ))}
-                    </div>
-                    <div className={'content_info_box'}>
-                        <p>
-                            {convertMinutesToHours(moviesDetail?.runtime)}
-                        </p>
-                    </div>
-                    <div className={'content_info_box'}>
-                        <p>
-                            {moviesDetail?.overview}
-                        </p>
-                    </div>
+                    <img src={IMAGE_BASE_URL + movieDetail?.poster_path} alt=""/>
+                    <div className={'content_info_container'}>
+                        <div className={'content_info_box'}>
+                            <h1>{movieDetail?.name}</h1>
+                            {singleWish ?
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                     onClick={handleTrueWishIcon}>
+                                    <path d="M0 0h32v32H0z" fill="transparent"></path>
+                                    <path
+                                        d="M16 31.498l-2.175-1.979C6.1 22.521 1 17.905 1 12.24a8.165 8.165 0 018.25-8.242A8.984 8.984 0 0116 7.131a8.984 8.984 0 016.75-3.133A8.165 8.165 0 0131 12.24c0 5.665-5.1 10.281-12.822 17.293z"
+                                        fill="#fff"></path>
+                                </svg>
+                                :
 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+                                     onClick={handleFalseWishIcon}>
+                                    <path d="M0 0h32v32H0z" fill="transparent"></path>
+                                    <g data-name="패\uC2A4 4347" fill="none">
+                                        <path
+                                            d="M16 31.5l-2.175-1.979C6.1 22.523 1 17.907 1 12.242A8.165 8.165 0 019.25 4 8.984 8.984 0 0116 7.133 8.984 8.984 0 0122.75 4 8.165 8.165 0 0131 12.242c0 5.665-5.1 10.281-12.822 17.293z"></path>
+                                        <path
+                                            d="M16.004 29.34l1.15-1.037c3.73-3.386 6.951-6.31 9.107-8.95 2.17-2.658 3.138-4.851 3.138-7.11v-.016a6.604 6.604 0 00-1.924-4.707 6.522 6.522 0 00-4.713-1.92 7.382 7.382 0 00-5.548 2.575L16 9.589l-1.214-1.414A7.384 7.384 0 009.233 5.6a6.522 6.522 0 00-4.708 1.92A6.604 6.604 0 002.6 12.227v.015c0 2.264.972 4.461 3.151 7.124 2.164 2.644 5.397 5.572 9.141 8.963l.01.008 1.102 1.004M16 31.499l-2.175-1.978C6.099 22.523 1 17.907 1 12.242A8.165 8.165 0 019.25 4 8.984 8.984 0 0116 7.133 8.984 8.984 0 0122.75 4 8.165 8.165 0 0131 12.242c0 5.665-5.1 10.281-12.823 17.294L16 31.499z"
+                                            fill="#fff"></path>
+                                    </g>
+                                </svg>
+
+                            }
+                        </div>
+                        <div className={'content_info_box'}>
+                            {movieDetail?.genres?.map((item: any, index: number) => (
+                                <div key={"movieDetailGenres-" + index}>
+                                    <p> {item?.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className={'content_info_box'}>
+                            <p>
+                                {movieDetail?.overview}
+                            </p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            </div>
-            {/*<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">*/}
-            {/*    <path d="M0 0h32v32H0z" fill="transparent"></path>*/}
-            {/*    <path*/}
-            {/*        d="M16 31.498l-2.175-1.979C6.1 22.521 1 17.905 1 12.24a8.165 8.165 0 018.25-8.242A8.984 8.984 0 0116 7.131a8.984 8.984 0 016.75-3.133A8.165 8.165 0 0131 12.24c0 5.665-5.1 10.281-12.822 17.293z"*/}
-            {/*        fill="#fff"></path>*/}
-            {/*</svg>*/}
+
             <footer>
                 <p>Copyright © 주식회사 티빙 All right reserved.</p>
             </footer>
@@ -153,4 +221,4 @@ const MovieDetailComponent = () => {
     );
 };
 
-export default MovieDetailComponent;
+export default movieDetailComponent;

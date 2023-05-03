@@ -206,7 +206,7 @@ const MyPageComponent = () => {
                             <div className={'my_wish_wrap'} key={"wishList-" + index}
                                  onClick={() => item.content_type === "tv" ? goTvDetail(item.content_id) : goMovieDetail(item.content_id)}>
                                 <img src={IMAGE_BASE_URL + item.content_poster} alt="" className="slide1_img"/>
-                                <div>{item.content_title}</div>
+                                <p>{item.content_title}</p>
                             </div>
                         );
                     })

@@ -75,8 +75,10 @@
 }
 .my_component .my_wish_wrap img{
     height: 300px;
-    flex: 1;
-    width: 100%;
+    width: fit-content;
+}
+.my_component .my_wish_wrap p{
+    width: 200px;
 }
 @media screen and (max-width: 768px) {
 
