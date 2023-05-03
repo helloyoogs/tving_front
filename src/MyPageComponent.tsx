@@ -24,8 +24,20 @@ const MyPageComponent = () => {
     const [wishList, setWishList]: any = useState([]);
     const [tabPage, setTabPage]: any = useState();
     const [data, setData]: any = useState([]);
+    const [userData, setUserData]: any = useState([]);
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
     const navigate = useNavigate();
+    //유저 test
+    useEffect(() => {
+        axios
+            .get("/user/userData")
+            .then((response) => {
+                setUserData(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     //이용 내역 테이블에서 로그인한 아이디이고 end_date가 만료되지 않은 회원만 조회
 
     useEffect(() => {
@@ -145,9 +157,6 @@ const MyPageComponent = () => {
             });
     }, []);
     const ListComponent = () => {
-        useEffect(() => {
-            console.log(data);
-        }, [data]);
         return (
             data && data.length > 0 ?
                 <table width="500">
@@ -195,9 +204,6 @@ const MyPageComponent = () => {
         );
     };
     const WishComponent = () => {
-        useEffect(() => {
-            console.log(wishList);
-        }, [wishList]);
         return (
             <div className={'my_wish_component'}>
                 {wishList && wishList.length > 0 ?
@@ -369,7 +375,7 @@ const MyPageComponent = () => {
                 <div className={"my_info_container"}>
                     <img src={my_tving_big} alt=""/>
                     <div className={"my_info_content"}>
-                        <p> {thisMonthlist?.user_id}님의 마이페이지</p>
+                        <p> {userData.username}님의 마이페이지</p>
                         {thisMonthlist?.id ? (
                             <div className={"cancle_button"}>
                                 {thisMonthlist.usageState.subscription_check === "true" ? (

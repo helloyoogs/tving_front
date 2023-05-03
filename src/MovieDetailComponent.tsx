@@ -172,7 +172,7 @@ const movieDetailComponent = () => {
                     <img src={IMAGE_BASE_URL + movieDetail?.poster_path} alt=""/>
                     <div className={'content_info_container'}>
                         <div className={'content_info_box'}>
-                            <h1>{movieDetail?.name}</h1>
+                            <h1>{movieDetail?.title}</h1>
                             {singleWish ?
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
                                      onClick={handleTrueWishIcon}>
