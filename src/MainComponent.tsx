@@ -11,6 +11,8 @@ import banner1_yagu from "./img/banner1_yagu.webp";
 import search from "./img/icon_search.svg";
 // @ts-ignore
 import x from "./img/x.svg";
+// @ts-ignore
+import x_circle from "./img/icon_x_circle.svg";
 import my_tving from "./img/my_tving.webp";
 import {A11y, Autoplay, Pagination} from "swiper";
 import Endpoint from "./config/Endpoint";
@@ -47,6 +49,7 @@ const MainComponent = (props: any) => {
                 console.log(error);
             });
     }, []);
+
     /* wheel,scrtoll 이벤트 main_header */
     function scroll_header() {
         if (scrollY > 0) {
@@ -112,14 +115,14 @@ const MainComponent = (props: any) => {
         },
     ];
 
-const handleSeacrch = () => {
-    const body = document.getElementsByTagName('body')[0];
+    const handleSeacrch = () => {
+        const body = document.getElementsByTagName('body')[0];
 
-    searchIcon === search?
-    setSearchIcon(x): setSearchIcon(search)
-    searchIcon === search ?
-    body.classList.add('scrollLock') : body.classList.remove('scrollLock')
-}
+        searchIcon === search ?
+            setSearchIcon(x) : setSearchIcon(search)
+        searchIcon === search ?
+            body.classList.add('scrollLock') : body.classList.remove('scrollLock')
+    }
     const handleList = () => {
         setListOnOff(!listOnOff)
     }
@@ -131,14 +134,32 @@ const handleSeacrch = () => {
                     {
                         place: "right",
                         type: "search",
-                        img:<img src={searchIcon}/> ,
-                        clinkEventName : handleSeacrch,
+                        img: <img src={searchIcon} alt={""}/>,
+                        clinkEventName: handleSeacrch,
                         list: (
                             searchIcon === x &&
                             <>
-                                <a>검색</a>
-                                <a>최근 검색어</a>
-                                <a>인기 검색어</a>
+                                <div className={'search_container'}>
+                                <label className={'search_box'}>
+                                    <input type={"search"} placeholder={"제목을 입력해보세요"}/>
+                                    <img src={search} alt={""}/>
+                                </label>
+                                <div className={'search_word_container'}>
+                                    <div className={'recent_search_container'}>
+                                        <div className={'recent_search_title_box'}>
+                                            <p className={'title'}>최근 검색어</p>
+                                            <div className={'all_delete'} role={'button'}>
+                                                모두 지우기
+                                                <img src={x_circle} alt={""}/></div>
+                                        </div>
+                                    </div>
+                                    <div className={'line'}></div>
+                                    <div className={'popular_search_container'}>
+                                        <p className={'title'}>인기 검색어</p>
+                                    </div>
+                                </div>
+                                </div>
+
                             </>
                         ),
                     },
@@ -146,10 +167,10 @@ const handleSeacrch = () => {
                         place: "right",
                         type: "my_tiving",
                         img: <img src={my_tving}/>,
-                        clinkEventName : handleList,
+                        clinkEventName: handleList,
                         list: (
-                                listOnOff &&
-                                <>
+                            listOnOff &&
+                            <>
                                 <a onClick={doLogout}>로그아웃</a>
                                 <a onClick={goPass}>이용권 구매</a>
                                 <a onClick={goMy}>My</a>
