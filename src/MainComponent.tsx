@@ -7,6 +7,10 @@ import "./MainComponent.css";
 import banner1_food from "./img/banner1_food.webp";
 import banner1_transfer_love from "./img/banner1_transfer_love.webp";
 import banner1_yagu from "./img/banner1_yagu.webp";
+// @ts-ignore
+import search from "./img/icon_search.svg";
+// @ts-ignore
+import x from "./img/x.svg";
 import my_tving from "./img/my_tving.webp";
 import {A11y, Autoplay, Pagination} from "swiper";
 import Endpoint from "./config/Endpoint";
@@ -16,6 +20,8 @@ import {API_KEY} from "./ignore/ignoresecurity";
 
 const MainComponent = (props: any) => {
     let [header_active, set_header_active] = useState<String[] | String>([" "]);
+    let [searchIcon, setSearchIcon] = useState<any>(search);
+    let [listOnOff, setListOnOff] = useState<any>(false);
     const navigate = useNavigate();
     const [moviesPopular, setMoviesPopular] = useState([]);
     const [tvPopular, setTvPopular] = useState([]);
@@ -106,7 +112,17 @@ const MainComponent = (props: any) => {
         },
     ];
 
+const handleSeacrch = () => {
+    const body = document.getElementsByTagName('body')[0];
 
+    searchIcon === search?
+    setSearchIcon(x): setSearchIcon(search)
+    searchIcon === search ?
+    body.classList.add('scrollLock') : body.classList.remove('scrollLock')
+}
+    const handleList = () => {
+        setListOnOff(!listOnOff)
+    }
     return (
         <div className="main_conponent">
             <Header
@@ -114,16 +130,33 @@ const MainComponent = (props: any) => {
                     {link: "/main", name: "홈", type: "logo"},
                     {
                         place: "right",
+                        type: "search",
+                        img:<img src={searchIcon}/> ,
+                        clinkEventName : handleSeacrch,
+                        list: (
+                            searchIcon === x &&
+                            <>
+                                <a onClick={doLogout}>111로그아웃</a>
+                                <a onClick={goPass}>이용권 구매</a>
+                                <a onClick={goMy}>My</a>
+                            </>
+                        ),
+                    },
+                    {
+                        place: "right",
                         type: "my_tiving",
                         img: <img src={my_tving}/>,
+                        clinkEventName : handleList,
                         list: (
-                            <>
+                                listOnOff &&
+                                <>
                                 <a onClick={doLogout}>로그아웃</a>
                                 <a onClick={goPass}>이용권 구매</a>
                                 <a onClick={goMy}>My</a>
                             </>
                         ),
                     },
+
                 ]}
                 className={header_active}
             />

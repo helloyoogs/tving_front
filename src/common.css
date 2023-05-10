@@ -29,6 +29,8 @@ caption {
 body {
   background: #000;
 }
+body.scrollLock { overflow: hidden; }
+
 .header.active {
   color: rgb(255, 255, 255);
   transition: backdrop-filter 0.3s linear 0s, background-color 0.3s linear 0s;
@@ -47,6 +49,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1.875rem;
+  z-index: 1;
 }
 .header a h1.logo {
   background-image: url("img/tving_new_logo_pc.svg");
@@ -58,8 +61,11 @@ body {
   font-size: 1rem;
   text-indent: -9999px;
 }
-.header div.my_tiving img{
-width: 2.5rem;
+.header div {
+  cursor: pointer;
+}
+.header div img{
+width: 2rem;
 }
 .header  a:not(.logo) {
   color: rgba(255, 255, 255, 1);
@@ -67,6 +73,11 @@ width: 2.5rem;
 }
 .header  a  .active {
   opacity: 0.64;
+}
+.header .header_right{
+  display: flex;
+  gap: 1.5rem;
+  z-index: 1;
 }
 .header .my_menu_popup{
   height: max-content;
@@ -77,11 +88,34 @@ width: 2.5rem;
   padding: .5rem  0 .5rem 0;
   background-color: #212121;
 }
+
 .header .my_menu_popup>div{
   display: flex;
   flex-direction: column;
 }
 .header .my_menu_popup a{
+  font-size: .8rem;
+  margin: .7rem;
+  cursor: pointer;
+}
+.header .search_popup{
+  /*background-color:rgba(0,0,0,.3);*/
+  background-color: pink;
+justify-content:center;
+align-items:center;
+top: 0;
+  left:0;
+  right:0;
+  bottom:0;
+display:flex;
+  position:fixed;
+
+}
+.header .search_popup>div{
+  display: flex;
+  flex-direction: column;
+}
+.header .search_popup a{
   font-size: .8rem;
   margin: .7rem;
   cursor: pointer;
@@ -107,7 +141,7 @@ footer {
     margin: 0;
     width: 4.216rem;
   }
-  .header div.my_tiving img{
-    width: 2rem;
+  .header div img{
+    width: 1.7rem;
   }
 }

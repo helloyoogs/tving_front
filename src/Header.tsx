@@ -4,7 +4,6 @@ import axios from "axios/index";
 import Endpoint from "./config/Endpoint";
 
 const Header = (props:any) => {
-
   return (
     <header className={"header " + props.className}>
       <div className={'header_left'}>
@@ -23,17 +22,18 @@ const Header = (props:any) => {
       <div className={'header_right'}>
         {props.content.map((item:any,index:number) => (
             item.place &&
-                <div key={"header-" + index} className={item.type}>
+                <div key={"header-" + index} className={item.type} onClick={item.clinkEventName ? item.clinkEventName : null}>
                     {item.img}
                 </div>
         ))}
+
       </div>
-        <div className={"my_menu_popup"}>
             {props.content.map((item:any,index:number) => (
-                item.place &&
+                item.place && item.list &&
+                <div className={item.type === "search"? "search_popup" :"my_menu_popup"  }>
                 <div key={"my_menu_popup"+index}>{item.list}</div>
+                </div>
             ))}
-        </div>
     </header>
   );
 };
