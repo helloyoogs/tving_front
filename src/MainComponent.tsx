@@ -136,9 +136,9 @@ const handleSeacrch = () => {
                         list: (
                             searchIcon === x &&
                             <>
-                                <a onClick={doLogout}>111로그아웃</a>
-                                <a onClick={goPass}>이용권 구매</a>
-                                <a onClick={goMy}>My</a>
+                                <a>검색</a>
+                                <a>최근 검색어</a>
+                                <a>인기 검색어</a>
                             </>
                         ),
                     },
