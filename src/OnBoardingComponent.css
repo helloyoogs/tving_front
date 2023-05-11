@@ -546,6 +546,10 @@
     display: block;
   }
 
+  .onboarding_component .content_wrap7 .faq{
+    margin: 0 2rem;
+  }
+
 }
 
 @media (min-width: 1200px) {
@@ -567,7 +571,6 @@
     max-width: 80rem;
   }
 
-
   .onboarding_component .content_wrap7>.faq>h2 {
     font-size: 1.667rem;
   }
@@ -575,5 +578,4 @@
   .onboarding_component .content_wrap7>.faq>div {
     font-size: 2rem;
   }
-
 }
