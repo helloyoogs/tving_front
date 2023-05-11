@@ -46,7 +46,7 @@ function LoginComponent({
                 <Input placeholder="아이디입력"
                    type={'text'}
                    value={username}
-                   onChange={(e:any) => setUsername(e.target.value)}/>
+                   onChange={(e) => setUsername(e.target.value)}/>
                 </label>
           </Form.Item>
             <Form.Item
@@ -60,7 +60,7 @@ function LoginComponent({
           >
                 <label>PW :
                     <Input.Password placeholder="비밀번호입력"   type={'password'} value={password}
-                            onChange={(e:any) => setPassword(e.target.value)} autoComplete={'on'} style={{backgroundColor:'transparent',color:'#ffffff'}}/>
+                            onChange={(e) => setPassword(e.target.value)} autoComplete={'on'} style={{backgroundColor:'transparent',color:'#ffffff'}}/>
                 </label>
 
           </Form.Item>

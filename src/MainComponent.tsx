@@ -20,9 +20,10 @@ import {useNavigate} from "react-router";
 import axios from "axios";
 import {API_KEY} from "./ignore/ignoresecurity";
 
-const MainComponent = (props: any) => {
-    let [searchIcon, setSearchIcon] = useState<any>(search);
-    let [listOnOff, setListOnOff] = useState<any>(false);
+
+const MainComponent = () => {
+    let [searchIcon, setSearchIcon] = useState(search);
+    let [listOnOff, setListOnOff] = useState(false);
     const navigate = useNavigate();
     const [moviesPopular, setMoviesPopular] = useState([]);
     const [tvPopular, setTvPopular] = useState([]);
@@ -31,6 +32,7 @@ const MainComponent = (props: any) => {
     const [moviesNowPlaying, setmoviesNowPlaying] = useState([]);
     const API_URL = "https://api.themoviedb.org/3/";
     const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
     useEffect(() => {
         Promise.all([
             axios.get(API_URL + "movie/popular?api_key=" + API_KEY + "&language=ko-KO&page=3"),
@@ -70,10 +72,10 @@ const MainComponent = (props: any) => {
                 alert("로그아웃에 실패하였습니다. 다시 시도해주세요.");
             });
     };
-    const goMovieDetail = (id: any) => {
+    const goMovieDetail = (id: number) => {
         navigate("/movieDetail/" + id);
     };
-    const goTvDetail = (id: any) => {
+    const goTvDetail = (id: number) => {
         navigate("/tvDetail/" + id);
     };
     const goPass = () => {
@@ -86,7 +88,7 @@ const MainComponent = (props: any) => {
         {
             id: 0,
             name: "푸드크로니클",
-            src: `${banner1_food}`,
+            src: banner1_food,
             alt: "",
         },
         {
@@ -128,24 +130,24 @@ const MainComponent = (props: any) => {
                             searchIcon === x &&
                             <>
                                 <div className={'search_container'}>
-                                <label className={'search_box'}>
-                                    <input type={"search"} placeholder={"제목을 입력해보세요"}/>
-                                    <img src={search} alt={""}/>
-                                </label>
-                                <div className={'search_word_container'}>
-                                    <div className={'recent_search_container'}>
-                                        <div className={'recent_search_title_box'}>
-                                            <p className={'title'}>최근 검색어</p>
-                                            <div className={'all_delete'} role={'button'}>
-                                                모두 지우기
-                                                <img src={x_circle} alt={""}/></div>
+                                    <label className={'search_box'}>
+                                        <input type={"search"} placeholder={"제목을 입력해보세요"}/>
+                                        <img src={search} alt={""}/>
+                                    </label>
+                                    <div className={'search_word_container'}>
+                                        <div className={'recent_search_container'}>
+                                            <div className={'recent_search_title_box'}>
+                                                <p className={'title'}>최근 검색어</p>
+                                                <div className={'all_delete'} role={'button'}>
+                                                    모두 지우기
+                                                    <img src={x_circle} alt={""}/></div>
+                                            </div>
+                                        </div>
+                                        <div className={'line'}></div>
+                                        <div className={'popular_search_container'}>
+                                            <p className={'title'}>인기 검색어</p>
                                         </div>
                                     </div>
-                                    <div className={'line'}></div>
-                                    <div className={'popular_search_container'}>
-                                        <p className={'title'}>인기 검색어</p>
-                                    </div>
-                                </div>
                                 </div>
 
                             </>
@@ -182,7 +184,14 @@ const MainComponent = (props: any) => {
                     }}
                     modules={[A11y, Autoplay, Pagination]}
                 >
-                    {bannerItems?.map((item: any, index: number) => (
+                    {bannerItems?.map((item:
+                                           {
+                                               id: number
+                                               name: string,
+                                               src: string,
+                                               alt: string
+                                           }
+                        , index: number) => (
                         <SwiperSlide key={"banner-" + index}>
                             <img src={item.src} alt="" className="slide1_img"/>
                         </SwiperSlide>
@@ -202,7 +211,6 @@ const MainComponent = (props: any) => {
                         <SwiperSlide key={"tvPopular-" + index} onClick={() => goTvDetail(item.id)}>
                             <img src={IMAGE_BASE_URL + item?.poster_path} alt="" className="slide1_img"/>
                             <p> {item?.name}</p>
-                            {/* {item.name} */}
                         </SwiperSlide>
                     ))}
                 </Swiper>

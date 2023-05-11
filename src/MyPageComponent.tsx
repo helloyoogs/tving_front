@@ -9,12 +9,7 @@ import axios from "axios";
 import Endpoint from "./config/Endpoint";
 import my_tving from "./img/my_tving.webp";
 import my_tving_big from "./img/my_tving_big.webp";
-
-interface SubscriptionType {
-    id: number;
-    name: string;
-    price: number;
-}
+import {SubscriptionType} from "./types/AllPage.type";
 
 const MyPageComponent = () => {
     const [thisMonthlist, setThisMonthlist]: any = useState();
