@@ -31,20 +31,11 @@ const JoinComponent = ({
                          setAddress,
                          handleSignUp
                        }: JoinProps) => {
-  let [header_active, set_header_active] = useState<String[]|String>([" "]);
 
-    function scroll_header() {
-    if (scrollY > 0) {
-      set_header_active((header_active = "active"));
-    } else {
-      set_header_active((header_active = " "));
-    }
-  }
-  window.addEventListener("scroll", scroll_header);
 
   return (
     <div className="join_component">
-      <Header content={[{ link: "/", name: "홈", type: "logo" }]} className={header_active} />
+      <Header content={[{ link: "/", name: "홈", type: "logo" }]}  />
       <div className="join_container">
         <h2>회원가입</h2>
         <Form

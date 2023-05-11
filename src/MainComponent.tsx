@@ -21,7 +21,6 @@ import axios from "axios";
 import {API_KEY} from "./ignore/ignoresecurity";
 
 const MainComponent = (props: any) => {
-    let [header_active, set_header_active] = useState<String[] | String>([" "]);
     let [searchIcon, setSearchIcon] = useState<any>(search);
     let [listOnOff, setListOnOff] = useState<any>(false);
     const navigate = useNavigate();
@@ -49,17 +48,6 @@ const MainComponent = (props: any) => {
                 console.log(error);
             });
     }, []);
-
-    /* wheel,scrtoll 이벤트 main_header */
-    function scroll_header() {
-        if (scrollY > 0) {
-            set_header_active((header_active = "active"));
-        } else {
-            set_header_active((header_active = " "));
-        }
-    }
-
-    window.addEventListener("scroll", scroll_header);
 
     const doLogout = () => {
         axios
@@ -179,7 +167,6 @@ const MainComponent = (props: any) => {
                     },
 
                 ]}
-                className={header_active}
             />
             <div className="content_wrap1">
                 <Swiper

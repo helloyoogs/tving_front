@@ -1,11 +1,21 @@
 /*eslint-disable*/
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios/index";
 import Endpoint from "./config/Endpoint";
 
 const Header = (props:any) => {
+    let [header_active, set_header_active] = useState<String[]|String>([" "]);
+
+    function scroll_header() {
+        if (scrollY > 0) {
+            set_header_active(("active"));
+        } else {
+            set_header_active((" "));
+        }
+    }
+    window.addEventListener("scroll", scroll_header);
   return (
-    <header className={"header " + props.className}>
+    <header className={"header " + header_active} >
       <div className={'header_left'}>
       {props.content.map((item:any,index:number) => (
           !item.place &&

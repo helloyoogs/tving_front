@@ -24,7 +24,6 @@ import quickss from './img/quickss.png'
 
 const OnBoardingComponent = () => {
   let [faq_active, set_faq_active] = useState<String[]|String>([" "]);
-  let [header_active, set_header_active] = useState<String[]|String>([" "]);
   let [wheel_active, set_wheel_active] = useState<String[]|String>([" "]);
   /* wheel,scrtoll 이벤트 header */
   function scroll_slider(e:any) {
@@ -63,17 +62,9 @@ const OnBoardingComponent = () => {
   window.addEventListener("scroll", scroll_slider);
   window.addEventListener("touchScroll", scroll_slider);
 
-  function scroll_header() {
-    if (scrollY > 0) {
-      set_header_active(("active"));
-    } else {
-      set_header_active((" "));
-    }
-  }
-  window.addEventListener("scroll", scroll_header);
   return (
     <div className="onboarding_component">
-      <Header content={[{ link: "/", name: "홈", type: "logo" }]} className={header_active} />
+      <Header content={[{ link: "/", name: "홈", type: "logo" }]}  />
 
       <div className="content_wrap1">
         <div className="main_content">

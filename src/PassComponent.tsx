@@ -20,7 +20,6 @@ interface SubscriptionType {
   price: number;
 }
 const PassComponent = () => {
-  let [header_active, set_header_active] = useState<String[] | String>([" "]);
   const [subscriptions, setSubscriptions]: any = useState([]);
   const [thisMonthlist, setThisMonthlist]: any = useState();
   const [nextMonthlist, setNextMonthList]: any = useState();
@@ -344,14 +343,7 @@ const PassComponent = () => {
       })
       .catch((err) => console.log(err));
   };
-  function scroll_header() {
-    if (scrollY > 0) {
-      set_header_active((header_active = "active"));
-    } else {
-      set_header_active((header_active = " "));
-    }
-  }
-  window.addEventListener("scroll", scroll_header);
+
   //console.log(thisMonthlist)
   //console.log(nextMonthlist)
   //console.log(payments)
@@ -360,7 +352,6 @@ const PassComponent = () => {
     <div className="pass_component">
       <Header
         content={[{ link: "/main", name: "홈", type: "logo" }]}
-        className={header_active}
       />
       <div className="pass_container">
         <h2>이용권</h2>

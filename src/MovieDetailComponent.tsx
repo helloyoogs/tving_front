@@ -15,7 +15,6 @@ import axios from "axios";
 import {API_KEY} from "./ignore/ignoresecurity";
 
 const movieDetailComponent = () => {
-    let [header_active, set_header_active] = useState<String[] | String>([" "]);
     const navigate = useNavigate();
     const [movieDetail, setmovieDetail]: any = useState([]);
     const [wishList, setWishList]: any = useState([]);
@@ -107,17 +106,6 @@ const movieDetailComponent = () => {
                 console.log(error);
             });
     }
-    /* wheel,scrtoll 이벤트 main_header */
-    function scroll_header() {
-        if (scrollY > 0) {
-            set_header_active((header_active = "active"));
-        } else {
-            set_header_active((header_active = " "));
-        }
-    }
-
-    window.addEventListener("scroll", scroll_header);
-
 
     const doLogout = () => {
         axios
@@ -164,7 +152,6 @@ const movieDetailComponent = () => {
                         ),
                     },
                 ]}
-                className={header_active}
             />
             <div className="content_wrap1"
                  style={{backgroundImage: `url(${IMAGE_BASE_URL + movieDetail?.backdrop_path})`}}>

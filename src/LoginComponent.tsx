@@ -24,19 +24,10 @@ function LoginComponent({
                           doTest,
                           signUpByNaver,
                         }: LoginProps) {
-  let [header_active, set_header_active] = useState<String[]|String>([" "]);
-  function scroll_header() {
-    if (scrollY > 0) {
-      set_header_active((header_active = "active"));
-    } else {
-      set_header_active((header_active = " "));
-    }
-  }
-  window.addEventListener("scroll", scroll_header);
 
     return (
     <div className="login_component">
-      <Header content={[{ link: "/", name: "홈", type: "logo" }]} className={header_active} />
+      <Header content={[{ link: "/", name: "홈", type: "logo" }]} />
       <div className="login_container">
         <h2>반가워요! 아이디와 비밀번호를 입력해주세요.</h2>
         <Form onFinish={() => {

@@ -17,7 +17,6 @@ interface SubscriptionType {
 }
 
 const MyPageComponent = () => {
-    let [header_active, set_header_active] = useState<String[] | String>([" "]);
     const [thisMonthlist, setThisMonthlist]: any = useState();
     const [nextMonthlist, setNextMonthList]: any = useState();
     const [subscriptions, setSubscriptions]: any = useState([]);
@@ -101,15 +100,6 @@ const MyPageComponent = () => {
         navigate("/tvDetail/" + id);
     };
 
-    function scroll_header() {
-        if (scrollY > 0) {
-            set_header_active((header_active = "active"));
-        } else {
-            set_header_active((header_active = " "));
-        }
-    }
-
-    window.addEventListener("scroll", scroll_header);
 
     function getDateAfterMonths(months: number, day: any) {
         let date = new Date();
@@ -368,7 +358,6 @@ const MyPageComponent = () => {
                         ),
                     },
                 ]}
-                className={header_active}
             />
 
             <div className="content_wrap1">
