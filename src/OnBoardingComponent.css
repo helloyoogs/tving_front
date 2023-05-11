@@ -456,6 +456,7 @@
 .onboarding_component .content_wrap7 .faq {
   margin: 0 3.8125rem 0 3.8125rem;
   border-bottom: 1px solid #212121;
+  white-space: pre-line;
 }
 
 .onboarding_component .content_wrap7 .faq>h2 {
@@ -469,7 +470,7 @@
   font-weight: normal;
 }
 
-.onboarding_component .content_wrap7 .faq>h2::after {
+.onboarding_component .faq>h2::after {
   content: '';
   display: inline-block;
   background-image: url('img/icon-drop-down.svg');
@@ -479,22 +480,15 @@
   min-width: 1.667rem;
   min-height: 2.333rem;
 }
-
-.onboarding_component .content_wrap7 .faq:nth-child(1)>.active0,
-.onboarding_component .content_wrap7 .faq:nth-child(2)>.active1,
-.onboarding_component .content_wrap7 .faq:nth-child(3)>.active2,
-.onboarding_component .content_wrap7 .faq:nth-child(4)>.active3 {
-  font-weight: bold;
-
+.onboarding_component .faq .faq_answer:not(.onboarding_component .faq.active .faq_answer){
+  display: none;
 }
-
-.onboarding_component .content_wrap7 .faq:nth-child(1)>.active0::after,
-.onboarding_component .content_wrap7 .faq:nth-child(2)>.active1::after,
-.onboarding_component .content_wrap7 .faq:nth-child(3)>.active2::after,
-.onboarding_component .content_wrap7 .faq:nth-child(4)>.active3::after {
+.onboarding_component .faq.active>h2::after{
   background-image: url('img/icon-drop-up.svg');
 }
-
+.onboarding_component .faq.active .faq_question{
+  font-weight: bold;
+}
 .onboarding_component .content_wrap7 .faq>div {
   font-size: 1.2rem;
   color: #a3a3a3;

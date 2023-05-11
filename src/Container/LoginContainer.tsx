@@ -1,9 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import MainPresenter from "../Presenter/Main/MainPresenter";
 import axios from "axios";
-// import Endpoint from "../config/Endpoint";
-// import cookies from "js-cookie";
 import { useNavigate } from "react-router";
 import LoginComponent from "../LoginComponent";
 
