@@ -45,6 +45,7 @@ const MainComponent = () => {
                 setMoviesTopRated(responses[1].data.results);
                 setTvPopular(responses[2].data.results);
                 setTvTopRated(responses[3].data.results);
+                console.log(responses[0].data.results)
             })
             .catch((error) => {
                 console.log(error);
